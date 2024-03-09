@@ -15,7 +15,7 @@ body {
 }
 
 a {
-  color: #5fcf80;
+  color: #D2B48C;
   text-decoration: none;
 }
 
@@ -43,7 +43,7 @@ h6 {
   right: 15px;
   bottom: 15px;
   z-index: 996;
-  background: #5fcf80;
+  background: #D2B48C;
   width: 40px;
   height: 40px;
   border-radius: 50px;
@@ -57,7 +57,7 @@ h6 {
 }
 
 .back-to-top:hover {
-  background: #7ed899;
+  background: #D2B48C;
   color: #fff;
 }
 
@@ -85,7 +85,7 @@ h6 {
   position: fixed;
   top: calc(50% - 30px);
   left: calc(50% - 30px);
-  border: 6px solid #5fcf80;
+  border: 6px solid #D2B48C;
   border-top-color: #fff;
   border-bottom-color: #fff;
   border-radius: 50%;
@@ -125,7 +125,7 @@ h6 {
 }
 
 #header .logo {
-  font-size: 30px;
+  font-size: 40px;
   margin: 0;
   padding: 0;
   line-height: 1;
@@ -136,7 +136,7 @@ h6 {
 }
 
 #header .logo a {
-  color: #5fcf80;
+  color: #D2B48C;
 }
 
 #header .logo img {
@@ -148,7 +148,7 @@ h6 {
 */
 .get-started-btn {
   margin-left: 22px;
-  background: #5fcf80;
+  background: #D2B48C;
   color: #fff;
   border-radius: 50px;
   padding: 8px 25px;
@@ -159,7 +159,7 @@ h6 {
 }
 
 .get-started-btn:hover {
-  background: #3ac162;
+  background: #e7972f;
   color: #fff;
 }
 
@@ -217,7 +217,7 @@ h6 {
 .navbar .active,
 .navbar .active:focus,
 .navbar li:hover>a {
-  color: #5fcf80;
+  color: #D2B48C;
 }
 
 .navbar .dropdown ul {
@@ -254,7 +254,7 @@ h6 {
 .navbar .dropdown ul a:hover,
 .navbar .dropdown ul .active:hover,
 .navbar .dropdown ul li:hover>a {
-  color: #5fcf80;
+  color: #D2B48C;
 }
 
 .navbar .dropdown:hover>ul {
@@ -402,7 +402,7 @@ h6 {
 #hero {
   width: 100%;
   height: 80vh;
-  background: url("../img/hero-bg.jpg") top center;
+  background: url("../img/hero-bg2.jpg") top center;
   background-size: cover;
   position: relative;
 }
@@ -439,7 +439,7 @@ h6 {
 #hero h2 {
   color: #eee;
   margin: 10px 0 0 0;
-  font-size: 24px;
+  font-size: 20px;
 }
 
 #hero .btn-get-started {
@@ -1392,7 +1392,7 @@ section {
 }
 
 .contact .php-email-form button[type=submit]:hover {
-  background: #3ac162;
+  background: #f49e2e;
 }
 
 @keyframes animate-loading {
@@ -1459,7 +1459,7 @@ section {
 
 #footer .footer-top .footer-links ul i {
   padding-right: 2px;
-  color: #5fcf80;
+  color:#D2B48C;
   font-size: 18px;
   line-height: 1;
 }
@@ -1483,7 +1483,7 @@ section {
 
 #footer .footer-top .footer-links ul a:hover {
   text-decoration: none;
-  color: #5fcf80;
+  color: #D2B48C;
 }
 
 #footer .footer-newsletter {
@@ -1523,7 +1523,7 @@ section {
   background: none;
   font-size: 16px;
   padding: 0 20px 2px 20px;
-  background: #5fcf80;
+  background: #D2B48C;
   color: #fff;
   transition: 0.3s;
   border-radius: 50px;
@@ -1531,7 +1531,7 @@ section {
 }
 
 #footer .footer-newsletter form input[type=submit]:hover {
-  background: #3ac162;
+  background:#D2B48C;
 }
 
 #footer .credits {
@@ -1540,18 +1540,18 @@ section {
 }
 
 #footer .credits a {
-  color: #3ac162;
+  color:#D2B48C;
   transition: 0.3s;
 }
 
 #footer .credits a:hover {
-  color: #5fcf80;
+  color:#D2B48C;
 }
 
 #footer .social-links a {
   font-size: 18px;
   display: inline-block;
-  background: #5fcf80;
+  background:#D2B48C;
   color: #fff;
   line-height: 1;
   padding: 8px 0;
@@ -1564,7 +1564,7 @@ section {
 }
 
 #footer .social-links a:hover {
-  background: #3ac162;
+  background: #D2B48C;
   color: #fff;
   text-decoration: none;
 }
