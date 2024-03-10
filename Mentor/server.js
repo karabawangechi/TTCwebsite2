@@ -73,10 +73,10 @@ app.use(express.static('uploads'));
 app.use(express.static('node_modules'));
 app.use('/', router);
 
-router.get('/Index', (req, res) => { // Fixed incorrect route
-    res.render("Index.ejs.ejs");
+router.get('/index', (req, res) => { // Fixed incorrect route
+    res.render("index.ejs");
 });
-router.get('/About', (req, res) => { // Fixed incorrect route
+router.get('/about', (req, res) => { // Fixed incorrect route
     res.render("about.ejs");
 });
 router.get('/contact', (req, res) => { // Fixed incorrect route

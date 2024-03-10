@@ -111,11 +111,11 @@ app.use(express["static"]('assets'));
 app.use(express["static"]('uploads'));
 app.use(express["static"]('node_modules'));
 app.use('/', router);
-router.get('/Index', function (req, res) {
+router.get('/index', function (req, res) {
   // Fixed incorrect route
-  res.render("Index.ejs.ejs");
+  res.render("index.ejs");
 });
-router.get('/About', function (req, res) {
+router.get('/about', function (req, res) {
   // Fixed incorrect route
   res.render("about.ejs");
 });
