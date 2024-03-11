@@ -6,7 +6,8 @@ var app = express();
 
 var bodyParser = require('body-parser');
 
-var session = require('express-session'); //const flash = require('connect-flash');
+var session = require('express-session'); //const multer = require('multer');
+//const flash = require('connect-flash');
 //const passport = require('passport');
 //const bcrypt = require('bcryptjs');
 //const jwt = require('jsonwebtoken');
@@ -19,19 +20,17 @@ var cookieParser = require('cookie-parser'); // Added missing import
 var MongoStore = require('connect-mongo'); // Added missing import
 
 
-var connectDB = require('./config/db.config'); //const Reply = require('./models/reply.model');
-//const Blog = require('./models/blog.model');
-//const pdfkit = require('pdfkit');
-//const fs = require('fs');
+var connectDB = require('./config/db.config');
+
+var multer = require('multer');
+
+var Contact = require('./models/contactform.js');
+
+var Registration = require('./models/register.js');
+
+var Subscribe = require('./models/subscriber.js'); //const upload = multer({ dest: 'uploads/' });
 
 
-var multer = require('multer'); //const Copperivy = require('./models/copperivy');
-//const Register = require('./models/registerrestaurant.model');
-
-
-var upload = multer({
-  dest: 'uploads/'
-});
 var router = express.Router();
 app.use(express.json());
 app.use(bodyParser.urlencoded({
@@ -47,6 +46,18 @@ app.use(session({
     mongoUrl: "mongodb://127.0.0.1:27017/Mwencha"
   })
 }));
+var storage = multer.diskStorage({
+  destination: function destination(req, file, cb) {
+    cb(null, 'uploads/'); // Folder where files will be stored
+  },
+  filename: function filename(req, file, cb) {
+    cb(null, file.originalname); // Keep original file name
+  }
+});
+var upload = multer({
+  storage: storage
+}); //Handle POST request for registration form
+
 app.post('/register', upload.fields([{
   name: 'admissionLetter',
   maxCount: 1
@@ -54,10 +65,7 @@ app.post('/register', upload.fields([{
   name: 'nationalID',
   maxCount: 1
 }, {
-  name: 'kceseCertificate',
-  maxCount: 1
-}, {
-  name: 'kcseResultSlip',
+  name: 'kcseCertificate',
   maxCount: 1
 }, {
   name: 'leavingCertificate',
@@ -66,43 +74,51 @@ app.post('/register', upload.fields([{
   name: 'birthCertificate',
   maxCount: 1
 }]), function _callee(req, res) {
-  var registrationData, files, newRegistration;
+  var _req$body, name, email, files, newRegistration;
+
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
-          registrationData = req.body;
-          files = req.files; // Save file paths to registration data
+          _req$body = req.body, name = _req$body.name, email = _req$body.email;
+          files = req.files; // Create a new registration document
 
-          registrationData.admissionLetter = files.admissionLetter[0].path;
-          registrationData.nationalID = files.nationalID[0].path;
-          registrationData.kceseCertificate = files.kceseCertificate[0].path;
-          registrationData.kcseResultSlip = files.kcseResultSlip[0].path;
-          registrationData.leavingCertificate = files.leavingCertificate[0].path;
-          registrationData.birthCertificate = files.birthCertificate[0].path; // Save registration data to database
+          newRegistration = new Registration({
+            name: name,
+            email: email,
+            admissionLetter: files.admissionLetter[0].path,
+            nationalID: files.nationalID[0].path,
+            kcseCertificate: files.kcseCertificate[0].path,
+            leavingCertificate: files.leavingCertificate[0].path,
+            birthCertificate: files.birthCertificate[0].path
+          }); // Save the registration document to the database
 
-          newRegistration = new Registration(registrationData);
-          _context.next = 12;
+          _context.next = 6;
           return regeneratorRuntime.awrap(newRegistration.save());
 
-        case 12:
-          res.status(201).send('Registration successful!');
-          _context.next = 19;
+        case 6:
+          // Send response indicating successful registration
+          res.status(201).json({
+            message: 'Registration successful'
+          });
+          _context.next = 13;
           break;
 
-        case 15:
-          _context.prev = 15;
+        case 9:
+          _context.prev = 9;
           _context.t0 = _context["catch"](0);
-          console.error(_context.t0);
-          res.status(500).send('Internal Server Error');
+          console.error('Error processing registration:', _context.t0);
+          res.status(500).json({
+            error: 'Internal Server Error'
+          });
 
-        case 19:
+        case 13:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[0, 15]]);
+  }, null, null, [[0, 9]]);
 });
 app.use(express["static"]('assets'));
 app.set('view engine', 'ejs');
@@ -129,7 +145,12 @@ router.get('/courses', function (req, res) {
 });
 router.get('/register', function (req, res) {
   // Fixed incorrect route
-  res.render("courses.ejs");
+  res.render("register.ejs");
+});
+router.get('/contact', function (req, res) {
+  res.render("contact.ejs", {
+    user: user
+  });
 });
 
 function sendConfirmationEmail(userEmail) {
@@ -143,13 +164,13 @@ function sendConfirmationEmail(userEmail) {
           transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: '',
-              pass: ''
+              user: 'Iseatout@gmail.com',
+              pass: 'dytjsxykactbirfc'
             }
           }); // Define email options
 
           mailOptions = {
-            from: '',
+            from: 'Iseatout@gmail.com',
             to: userEmail,
             // Use the provided userEmail parameter
             subject: 'Subscription Confirmation',
@@ -181,7 +202,89 @@ function sendConfirmationEmail(userEmail) {
 
 module.exports = {
   sendConfirmationEmail: sendConfirmationEmail
-};
+}; // Use the sendConfirmationEmail function in your route handler
+
+app.post('/subscribe', function _callee2(req, res) {
+  var email, Subcriber;
+  return regeneratorRuntime.async(function _callee2$(_context3) {
+    while (1) {
+      switch (_context3.prev = _context3.next) {
+        case 0:
+          email = req.body.email; // Save the subscriber's email in your database or perform any other necessary actions
+
+          _context3.prev = 1;
+          _context3.next = 4;
+          return regeneratorRuntime.awrap(sendConfirmationEmail(email));
+
+        case 4:
+          // Render a success page or respond with a success message
+          Subcriber = {
+            email: email
+          };
+          res.render('Subscribe.ejs', {
+            user: user
+          });
+          _context3.next = 12;
+          break;
+
+        case 8:
+          _context3.prev = 8;
+          _context3.t0 = _context3["catch"](1);
+          console.error('Error subscribing:', _context3.t0);
+          res.status(500).json({
+            error: 'An error occurred'
+          });
+
+        case 12:
+        case "end":
+          return _context3.stop();
+      }
+    }
+  }, null, null, [[1, 8]]);
+});
+router.post('/contactform', function _callee3(req, res) {
+  var _req$body2, name, message, email, subject, contactData, newContact;
+
+  return regeneratorRuntime.async(function _callee3$(_context4) {
+    while (1) {
+      switch (_context4.prev = _context4.next) {
+        case 0:
+          _req$body2 = req.body, name = _req$body2.name, message = _req$body2.message, email = _req$body2.email, subject = _req$body2.subject; // Assuming you have set up user authentication
+
+          contactData = {
+            name: name,
+            message: message,
+            subject: subject,
+            email: email
+          };
+          _context4.prev = 2;
+          _context4.next = 5;
+          return regeneratorRuntime.awrap(Contact.create(contactData));
+
+        case 5:
+          newContact = _context4.sent;
+          res.render('contact.ejs', {
+            newContact: newContact
+          }); // Redirect to the newly created reply
+
+          _context4.next = 13;
+          break;
+
+        case 9:
+          _context4.prev = 9;
+          _context4.t0 = _context4["catch"](2);
+          console.error('Error creating reply:', _context4.t0);
+          res.status(500).json({
+            error: 'Internal Server Error'
+          });
+
+        case 13:
+        case "end":
+          return _context4.stop();
+      }
+    }
+  }, null, null, [[2, 9]]);
+});
 app.listen(PORT, function () {
   console.log("App is listening on port ".concat(PORT));
 });
