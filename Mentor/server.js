@@ -2,22 +2,13 @@ const express = require("express");
 const app = express();
 const bodyParser = require('body-parser');
 const session = require('express-session');
-//const multer = require('multer');
-//const flash = require('connect-flash');
-//const passport = require('passport');
-//const bcrypt = require('bcryptjs');
-//const jwt = require('jsonwebtoken');
-//const nodemailer = require('nodemailer');
-const cookieParser = require('cookie-parser'); // Added missing import
-const MongoStore = require('connect-mongo'); // Added missing import
+const cookieParser = require('cookie-parser');
+const MongoStore = require('connect-mongo');
 const connectDB = require('./config/db.config');
-
 const multer = require('multer');
-
-const Contact =require('./models/contactform.js')
-const Registration =require('./models/register.js')
-const Subscribe =require('./models/subscriber.js')
-//const upload = multer({ dest: 'uploads/' });
+const Contact = require('./models/contactform.js');
+const Registration = require('./models/register.js');
+const nodemailer = require('nodemailer'); // Added nodemailer
 const router = express.Router();
 
 app.use(express.json());
@@ -34,17 +25,54 @@ app.use(session({
         mongoUrl: "mongodb://127.0.0.1:27017/Mwencha"
     })
 }));
+app.use(express.static('assets'));
+app.set('view engine', 'ejs');
+app.use('/assets', express.static('assets'));
+
+app.use(express.static('assets'));
+app.use(express.static('uploads'));
+app.use(express.static('node_modules'));
+app.use('/', router);
+
+router.get('/index', (req, res) => {
+    res.render("index.ejs");
+});
+router.get('/about', (req, res) => {
+    res.render("about.ejs");
+});
+router.get('/contact', (req, res) => {
+    res.render("contact.ejs");
+});
+
+router.get('/courses', (req, res) => {
+    res.render("courses.ejs");
+});
+router.get('/feesstructure', (req, res) => {
+    res.render("feesstructure.ejs");
+});
+router.get('/register', (req, res) => {
+    res.render("register.ejs");
+});
+router.get('/registerconfirmation', (req, res) => {
+    res.render("registerconfirmation.ejs");
+});
+
+
+
+// Set up multer storage for file uploads
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'uploads/') // Folder where files will be stored
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname) // Keep original file name
-    }
-  });
-  
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/') // Folder where files will be stored
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname) // Keep original file name
+  }
+});
+
 const upload = multer({ storage: storage });
-//Handle POST request for registration form
+
+// Handle POST request for registration form
+// Handle POST request for registration form
 app.post('/register', upload.fields([
     { name: 'admissionLetter', maxCount: 1 },
     { name: 'nationalID', maxCount: 1 },
@@ -70,115 +98,63 @@ app.post('/register', upload.fields([
       // Save the registration document to the database
       await newRegistration.save();
   
-      // Send response indicating successful registration
-      res.status(201).json({ message: 'Registration successful' });
+      // Send email notification
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'Iseatout@gmail.com',
+          pass: 'iwrnouidsjrjvbzw' // Provide your Gmail app password here
+        }
+      });
+  
+      const mailOptions = {
+        from: 'Iseatout@gmail.com',
+        to: email,
+        subject: 'Registration Successful',
+        text: `Thank you for registering with Mwencha TTC. Please note that you need to pay Ksh1000 unrefundable registration fee with Paybill 124536. Please forward the M-Pesa message to mwenchattc2023@gmail.com for confirmation.`
+      };
+  
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log('Error sending email:', error);
+        } else {
+          console.log('Email sent:', info.response);
+        }
+      });
+  
+      
+      res.render('registrationconfirmation.ejs' );
     } catch (error) {
       console.error('Error processing registration:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
-app.use(express.static('assets'));
-app.set('view engine', 'ejs');
-app.use('/assets', express.static('assets'));
+  app.post('/contactform', async (req, res) => {
+    try {
+        // Extract data from the request body
+        const { name, email, subject, message } = req.body;
 
-app.use(express.static('assets'));
-app.use(express.static('uploads'));
-app.use(express.static('node_modules'));
-app.use('/', router);
+        // Create a new contact document
+        const newContact = new Contact({
+            name: name,
+            email: email,
+            subject: subject,
+            message: message
+        });
 
-router.get('/index', (req, res) => { // Fixed incorrect route
-    res.render("index.ejs");
-});
-router.get('/about', (req, res) => { // Fixed incorrect route
-    res.render("about.ejs");
-});
-router.get('/contact', (req, res) => { // Fixed incorrect route
-    res.render("contact.ejs");
-});
+        // Save the contact document to the database
+        await newContact.save();
 
-router.get('/courses', (req, res) => { // Fixed incorrect route
-    res.render("courses.ejs");
-});
-router.get('/register', (req, res) => { // Fixed incorrect route
-    res.render("register.ejs");
-});
-
-router.get('/contact', (req, res) => {
-    
-
-    res.render("contact.ejs" ,{user});
-    })
-
-    async function sendConfirmationEmail(userEmail) {
-        try {
-            // Create a nodemailer transporter
-            const transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                    user: 'Iseatout@gmail.com',
-                    pass: 'dytjsxykactbirfc',
-                },
-            });
-    
-            // Define email options
-            const mailOptions = {
-                from: 'Iseatout@gmail.com',
-                to: userEmail, // Use the provided userEmail parameter
-                subject: 'Subscription Confirmation',
-                text: 'Thank you for subscribing to our newsletter! You will receive monthly updates on the best places to dine.',
-            };
-    
-            // Send the email
-            const info = await transporter.sendMail(mailOptions);
-            console.log('Email sent:', info);
-    
-            return info;
-        } catch (error) {
-            console.error('Error sending email:', error);
-            throw error;
-        }
+        // Send response indicating successful contact form submission
+         res.render('contact.ejs', { successMessage: 'Your message has been sent. Thank you!' });
+    } catch (error) {
+        console.error('Error processing contact form:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
-    
-    // Export the sendConfirmationEmail function
-    module.exports = { sendConfirmationEmail };
-    
-    // Use the sendConfirmationEmail function in your route handler
-    app.post('/subscribe', async (req, res) => {
-        const { email } = req.body;
-    
-        // Save the subscriber's email in your database or perform any other necessary actions
-    
-        try {
-            // Send the confirmation email by passing the email as a parameter
-            await sendConfirmationEmail(email);
-    
-            // Render a success page or respond with a success message
-            const Subcriber = { email };
-            res.render('Subscribe.ejs', { user });
-        } catch (error) {
-            console.error('Error subscribing:', error);
-            res.status(500).json({ error: 'An error occurred' });
-        }
-    });
-    
+});
 
-    router.post('/contactform',  async (req, res) => {
-        const { name, message, email,subject } =req.body
-        // Assuming you have set up user authentication
-        const contactData = {
-            name,
-             message,
-             subject,
-              email };
-      
-        try {
-          const newContact = await Contact.create(contactData);
-          res.render('contact.ejs',{newContact}); // Redirect to the newly created reply
-        } catch (error) {
-          console.error('Error creating reply:', error);
-          res.status(500).json({ error: 'Internal Server Error' });
-        }
-      });
+// Other routes and middleware...
+
 app.listen(PORT, () => {
     console.log(`App is listening on port ${PORT}`);
 });

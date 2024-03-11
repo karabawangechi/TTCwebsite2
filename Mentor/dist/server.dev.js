@@ -6,19 +6,11 @@ var app = express();
 
 var bodyParser = require('body-parser');
 
-var session = require('express-session'); //const multer = require('multer');
-//const flash = require('connect-flash');
-//const passport = require('passport');
-//const bcrypt = require('bcryptjs');
-//const jwt = require('jsonwebtoken');
-//const nodemailer = require('nodemailer');
+var session = require('express-session');
 
+var cookieParser = require('cookie-parser');
 
-var cookieParser = require('cookie-parser'); // Added missing import
-
-
-var MongoStore = require('connect-mongo'); // Added missing import
-
+var MongoStore = require('connect-mongo');
 
 var connectDB = require('./config/db.config');
 
@@ -28,7 +20,7 @@ var Contact = require('./models/contactform.js');
 
 var Registration = require('./models/register.js');
 
-var Subscribe = require('./models/subscriber.js'); //const upload = multer({ dest: 'uploads/' });
+var nodemailer = require('nodemailer'); // Added nodemailer
 
 
 var router = express.Router();
@@ -46,6 +38,35 @@ app.use(session({
     mongoUrl: "mongodb://127.0.0.1:27017/Mwencha"
   })
 }));
+app.use(express["static"]('assets'));
+app.set('view engine', 'ejs');
+app.use('/assets', express["static"]('assets'));
+app.use(express["static"]('assets'));
+app.use(express["static"]('uploads'));
+app.use(express["static"]('node_modules'));
+app.use('/', router);
+router.get('/index', function (req, res) {
+  res.render("index.ejs");
+});
+router.get('/about', function (req, res) {
+  res.render("about.ejs");
+});
+router.get('/contact', function (req, res) {
+  res.render("contact.ejs");
+});
+router.get('/courses', function (req, res) {
+  res.render("courses.ejs");
+});
+router.get('/feesstructure', function (req, res) {
+  res.render("feesstructure.ejs");
+});
+router.get('/register', function (req, res) {
+  res.render("register.ejs");
+});
+router.get('/registerconfirmation', function (req, res) {
+  res.render("registerconfirmation.ejs");
+}); // Set up multer storage for file uploads
+
 var storage = multer.diskStorage({
   destination: function destination(req, file, cb) {
     cb(null, 'uploads/'); // Folder where files will be stored
@@ -56,7 +77,8 @@ var storage = multer.diskStorage({
 });
 var upload = multer({
   storage: storage
-}); //Handle POST request for registration form
+}); // Handle POST request for registration form
+// Handle POST request for registration form
 
 app.post('/register', upload.fields([{
   name: 'admissionLetter',
@@ -74,7 +96,7 @@ app.post('/register', upload.fields([{
   name: 'birthCertificate',
   maxCount: 1
 }]), function _callee(req, res) {
-  var _req$body, name, email, files, newRegistration;
+  var _req$body, name, email, files, newRegistration, transporter, mailOptions;
 
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
@@ -98,193 +120,92 @@ app.post('/register', upload.fields([{
           return regeneratorRuntime.awrap(newRegistration.save());
 
         case 6:
-          // Send response indicating successful registration
-          res.status(201).json({
-            message: 'Registration successful'
+          // Send email notification
+          transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user: 'Iseatout@gmail.com',
+              pass: 'iwrnouidsjrjvbzw' // Provide your Gmail app password here
+
+            }
           });
-          _context.next = 13;
+          mailOptions = {
+            from: 'Iseatout@gmail.com',
+            to: email,
+            subject: 'Registration Successful',
+            text: "Thank you for registering with Mwencha TTC. Please note that you need to pay Ksh1000 unrefundable registration fee with Paybill 124536. Please forward the M-Pesa message to mwenchattc2023@gmail.com for confirmation."
+          };
+          transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+              console.log('Error sending email:', error);
+            } else {
+              console.log('Email sent:', info.response);
+            }
+          });
+          res.render('registrationconfirmation.ejs');
+          _context.next = 16;
           break;
 
-        case 9:
-          _context.prev = 9;
+        case 12:
+          _context.prev = 12;
           _context.t0 = _context["catch"](0);
           console.error('Error processing registration:', _context.t0);
           res.status(500).json({
             error: 'Internal Server Error'
           });
 
-        case 13:
+        case 16:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[0, 9]]);
+  }, null, null, [[0, 12]]);
 });
-app.use(express["static"]('assets'));
-app.set('view engine', 'ejs');
-app.use('/assets', express["static"]('assets'));
-app.use(express["static"]('assets'));
-app.use(express["static"]('uploads'));
-app.use(express["static"]('node_modules'));
-app.use('/', router);
-router.get('/index', function (req, res) {
-  // Fixed incorrect route
-  res.render("index.ejs");
-});
-router.get('/about', function (req, res) {
-  // Fixed incorrect route
-  res.render("about.ejs");
-});
-router.get('/contact', function (req, res) {
-  // Fixed incorrect route
-  res.render("contact.ejs");
-});
-router.get('/courses', function (req, res) {
-  // Fixed incorrect route
-  res.render("courses.ejs");
-});
-router.get('/register', function (req, res) {
-  // Fixed incorrect route
-  res.render("register.ejs");
-});
-router.get('/contact', function (req, res) {
-  res.render("contact.ejs", {
-    user: user
-  });
-});
+app.post('/contactform', function _callee2(req, res) {
+  var _req$body2, name, email, subject, message, newContact;
 
-function sendConfirmationEmail(userEmail) {
-  var transporter, mailOptions, info;
-  return regeneratorRuntime.async(function sendConfirmationEmail$(_context2) {
+  return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
           _context2.prev = 0;
-          // Create a nodemailer transporter
-          transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-              user: 'Iseatout@gmail.com',
-              pass: 'dytjsxykactbirfc'
-            }
-          }); // Define email options
+          // Extract data from the request body
+          _req$body2 = req.body, name = _req$body2.name, email = _req$body2.email, subject = _req$body2.subject, message = _req$body2.message; // Create a new contact document
 
-          mailOptions = {
-            from: 'Iseatout@gmail.com',
-            to: userEmail,
-            // Use the provided userEmail parameter
-            subject: 'Subscription Confirmation',
-            text: 'Thank you for subscribing to our newsletter! You will receive monthly updates on the best places to dine.'
-          }; // Send the email
+          newContact = new Contact({
+            name: name,
+            email: email,
+            subject: subject,
+            message: message
+          }); // Save the contact document to the database
 
           _context2.next = 5;
-          return regeneratorRuntime.awrap(transporter.sendMail(mailOptions));
+          return regeneratorRuntime.awrap(newContact.save());
 
         case 5:
-          info = _context2.sent;
-          console.log('Email sent:', info);
-          return _context2.abrupt("return", info);
-
-        case 10:
-          _context2.prev = 10;
-          _context2.t0 = _context2["catch"](0);
-          console.error('Error sending email:', _context2.t0);
-          throw _context2.t0;
-
-        case 14:
-        case "end":
-          return _context2.stop();
-      }
-    }
-  }, null, null, [[0, 10]]);
-} // Export the sendConfirmationEmail function
-
-
-module.exports = {
-  sendConfirmationEmail: sendConfirmationEmail
-}; // Use the sendConfirmationEmail function in your route handler
-
-app.post('/subscribe', function _callee2(req, res) {
-  var email, Subcriber;
-  return regeneratorRuntime.async(function _callee2$(_context3) {
-    while (1) {
-      switch (_context3.prev = _context3.next) {
-        case 0:
-          email = req.body.email; // Save the subscriber's email in your database or perform any other necessary actions
-
-          _context3.prev = 1;
-          _context3.next = 4;
-          return regeneratorRuntime.awrap(sendConfirmationEmail(email));
-
-        case 4:
-          // Render a success page or respond with a success message
-          Subcriber = {
-            email: email
-          };
-          res.render('Subscribe.ejs', {
-            user: user
+          // Send response indicating successful contact form submission
+          res.render('contact.ejs', {
+            successMessage: 'Your message has been sent. Thank you!'
           });
-          _context3.next = 12;
+          _context2.next = 12;
           break;
 
         case 8:
-          _context3.prev = 8;
-          _context3.t0 = _context3["catch"](1);
-          console.error('Error subscribing:', _context3.t0);
-          res.status(500).json({
-            error: 'An error occurred'
-          });
-
-        case 12:
-        case "end":
-          return _context3.stop();
-      }
-    }
-  }, null, null, [[1, 8]]);
-});
-router.post('/contactform', function _callee3(req, res) {
-  var _req$body2, name, message, email, subject, contactData, newContact;
-
-  return regeneratorRuntime.async(function _callee3$(_context4) {
-    while (1) {
-      switch (_context4.prev = _context4.next) {
-        case 0:
-          _req$body2 = req.body, name = _req$body2.name, message = _req$body2.message, email = _req$body2.email, subject = _req$body2.subject; // Assuming you have set up user authentication
-
-          contactData = {
-            name: name,
-            message: message,
-            subject: subject,
-            email: email
-          };
-          _context4.prev = 2;
-          _context4.next = 5;
-          return regeneratorRuntime.awrap(Contact.create(contactData));
-
-        case 5:
-          newContact = _context4.sent;
-          res.render('contact.ejs', {
-            newContact: newContact
-          }); // Redirect to the newly created reply
-
-          _context4.next = 13;
-          break;
-
-        case 9:
-          _context4.prev = 9;
-          _context4.t0 = _context4["catch"](2);
-          console.error('Error creating reply:', _context4.t0);
+          _context2.prev = 8;
+          _context2.t0 = _context2["catch"](0);
+          console.error('Error processing contact form:', _context2.t0);
           res.status(500).json({
             error: 'Internal Server Error'
           });
 
-        case 13:
+        case 12:
         case "end":
-          return _context4.stop();
+          return _context2.stop();
       }
     }
-  }, null, null, [[2, 9]]);
-});
+  }, null, null, [[0, 8]]);
+}); // Other routes and middleware...
+
 app.listen(PORT, function () {
   console.log("App is listening on port ".concat(PORT));
 });
