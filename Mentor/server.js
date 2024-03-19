@@ -11,9 +11,16 @@ const Registration = require('./models/register.js');
 const nodemailer = require('nodemailer'); // Added nodemailer
 const router = express.Router();
 
-app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(bodyParser.json({
+    verify: (req, res, buf) => {
+      try {
+        JSON.parse(buf);
+      } catch (e) {
+        res.status(400).json({ error: 'Invalid JSON' });
+      }
+    }
+  }));
+app.use(bodyParser.urlencoded({ extended: false }))
 const PORT = process.env.PORT || 5000;
 
 app.use(cookieParser())
@@ -47,8 +54,8 @@ router.get('/contact', (req, res) => {
 router.get('/courses', (req, res) => {
     res.render("courses.ejs");
 });
-router.get('/feesstructure', (req, res) => {
-    res.render("feesstructure.ejs");
+router.get('/feestructure', (req, res) => {
+    res.render("feestructure.ejs");
 });
 router.get('/register', (req, res) => {
     res.render("register.ejs");
@@ -111,7 +118,7 @@ app.post('/register', upload.fields([
         from: 'Iseatout@gmail.com',
         to: email,
         subject: 'Registration Successful',
-        text: `Thank you for registering with Mwencha TTC. Please note that you need to pay Ksh1000 unrefundable registration fee with Paybill 124536. Please forward the M-Pesa message to mwenchattc2023@gmail.com for confirmation.`
+        text: "Thank you for registering with Mwencha TTC. Please note that you need to pay Ksh1000 unrefundable registration fee with Paybill 124536. Please forward the M-Pesa message to mwenchattc2023@gmail.com for confirmation."
       };
   
       transporter.sendMail(mailOptions, (error, info) => {
@@ -156,5 +163,5 @@ app.post('/register', upload.fields([
 // Other routes and middleware...
 
 app.listen(PORT, () => {
-    console.log(`App is listening on port ${PORT}`);
+    console.log('App is listening on port ${PORT}');
 });
