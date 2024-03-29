@@ -1,14 +1,4 @@
-/**
-* Template Name: Mentor
-* Updated: Jan 29 2024 with Bootstrap v5.3.2
-* Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
 
-/*--------------------------------------------------------------
-# General
---------------------------------------------------------------*/
 body {
   font-family: "Open Sans", sans-serif;
   color: #444444;
@@ -360,11 +350,10 @@ h6 {
 .navbar-mobile a:hover,
 .navbar-mobile .active,
 .navbar-mobile li:hover>a {
-<<<<<<< HEAD
+
   color: #D2B48C;;
-=======
   color:#e7972f;
->>>>>>> 594101652d6fe5bf3853076775f3f656953bdb59
+
 }
 
 .navbar-mobile .getstarted,
@@ -399,11 +388,10 @@ h6 {
 .navbar-mobile .dropdown ul a:hover,
 .navbar-mobile .dropdown ul .active:hover,
 .navbar-mobile .dropdown ul li:hover>a {
-<<<<<<< HEAD
+
   color:#D2B48C;
-=======
+
   color:#e7972f;
->>>>>>> 594101652d6fe5bf3853076775f3f656953bdb59
 }
 
 .navbar-mobile .dropdown>.dropdown-active {
@@ -471,13 +459,13 @@ h6 {
 }
 
 #hero .btn-get-started:hover {
-<<<<<<< HEAD
+
   background:#D2B48C;
   border: 2px solid#D2B48C;
-=======
+
   background:#e7972f;
   border: 2px solid #5fcf80;
->>>>>>> 594101652d6fe5bf3853076775f3f656953bdb59
+
 }
 
 @media (min-width: 1024px) {
@@ -608,11 +596,10 @@ section {
 }
 
 .about .content .learn-more-btn:hover {
-<<<<<<< HEAD
+
   background: #D2B48C;;
-=======
+
   background:#e7972f;
->>>>>>> 594101652d6fe5bf3853076775f3f656953bdb59
   color: #fff;
 }
 
@@ -680,13 +667,13 @@ section {
 }
 
 .why-us .content .more-btn:hover {
-<<<<<<< HEAD
+
   color:#D2B48C;
   background: #fff;
-=======
+
   color: #5fcf80;
   background:#e7972f;
->>>>>>> 594101652d6fe5bf3853076775f3f656953bdb59
+
 }
 
 .why-us .icon-boxes .icon-box {
