@@ -54,8 +54,8 @@ router.get('/contact', (req, res) => {
 router.get('/courses', (req, res) => {
     res.render("courses.ejs");
 });
-router.get('/feestructure', (req, res) => {
-    res.render("feestructure.ejs");
+router.get('/feesstructure', (req, res) => {
+    res.render("feesstructure.ejs");
 });
 router.get('/register', (req, res) => {
     res.render("register.ejs");

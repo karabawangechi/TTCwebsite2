@@ -31,6 +31,12 @@
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -76,6 +82,50 @@
   .about ul {
     color: #fff; /* Text color */
   }
+
+/* Carousel Container */
+.carousel {
+      overflow: hidden;
+    }
+
+    /* Carousel Items */
+    .carousel-item {
+      transition: transform 5s; /* Set transition speed */ 
+      overflow: hidden;
+    }
+
+    /* Center Image (Active Item) */
+    .carousel-item.active {
+      transform: scale(2); /* Enlarge the center item */
+      z-index: 1;
+    }
+
+    /* Side Images */
+    .carousel-item.active .carousel-inner .carousel-item:not(.active) {
+      display: inline-block; /* Display side images inline */
+      width: 33.333%; /* Set width for each side image */
+      overflow: hidden;
+    }
+
+    .carousel-item.active .carousel-inner .carousel-item:not(.active) img {
+       /* Expand width of side images */
+      height: auto; /* Maintain aspect ratio */
+      filter: blur(1px); /* Apply blur effect */
+    }
+
+    /* Zoom Effect on Hover */
+    .carousel-item:hover {
+      transform: scale(1.2); /* Zoom effect on hover */
+      z-index: 1;
+    }
+
+    /* Remove Blur and Adjust Height for Active Image */
+    .carousel-item.active img {
+      filter: blur(0); /* Remove blur for active image */
+      height: 400px; /* Set height for active image */
+      width: auto; /* Auto width for active image */
+       
+    }
 </style>
 
 </head>
@@ -193,92 +243,58 @@
 
       </div>
     </section><!-- End Counts Section -->
+
     <!-- ======= Gallery Section ======= -->
-    <section id="testimonials" class="testimonials">
+    <section id="testimonials" class="testimonials" style="background-color:rgba(114, 59, 7, 0.1 );">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
           <h2>G</h2>
           <p>Check Out Our Facilities</p>
         </div>
-
         <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
-          <div class="swiper-wrapper">
 
-            <div class="swiper-slide">
-              <div class="testimonial-wrap">
-                <div class="testimonial-item">
-                  <img src="assets/img/Gate1.jpg" class="testimonial-img" alt="">
-                  <h3>Saul Goodman</h3>
-                  <h4>Ceo &amp; Founder</h4>
-                  <p>
-                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                    Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
-                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                  </p>
+          
+          <section>
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="5000">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <div class="row">
+                    <div class="col">
+                      <img class="d-block w-100" src="assets/img/Compound5.jpg" alt="First slide">
+                    </div>
+                    <div class="col">
+                      <img class="d-block w-100" src="assets/img/compound1.jpg" alt="Second slide">
+                    </div>
+                    <div class="col">
+                      <img class="d-block w-100" src="assets/img/compound2.jpg" alt="Third slide">
+                    </div>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <div class="row">
+                    <div class="col">
+                      <img class="d-block w-100" src="assets/img/Compound3.jpg" alt="Fourth slide">
+                    </div>
+                    <div class="col">
+                      <img class="d-block w-100" src="assets/img/compound4.jpg" alt="Fifth slide">
+                    </div>
+                    <div class="col">
+                      <img class="d-block w-100" src="assets/img/compound5.jpg" alt="Sixth slide">
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-wrap">
-                <div class="testimonial-item">
-                  <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                  <h3>Sara Wilsson</h3>
-                  <h4>Designer</h4>
-                  <p>
-                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                    Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                  </p>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-wrap">
-                <div class="testimonial-item">
-                  <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                  <h3>Jena Karlis</h3>
-                  <h4>Store Owner</h4>
-                  <p>
-                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                    Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                  </p>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-wrap">
-                <div class="testimonial-item">
-                  <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                  <h3>Matt Brandon</h3>
-                  <h4>Freelancer</h4>
-                  <p>
-                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                    Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                  </p>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-wrap">
-                <div class="testimonial-item">
-                  <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                  <h3>John Larson</h3>
-                  <h4>Entrepreneur</h4>
-                  <p>
-                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                    Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                  </p>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
+              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </section>
 
           </div>
           <div class="swiper-pagination"></div>
@@ -286,6 +302,7 @@
 
       </div>
     </section><!-- End Gallery Section -->
+    
 
     <!-- ======= Testimonials Section ======= -->
     <section id="testimonials" class="testimonials">
