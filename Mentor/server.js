@@ -29,7 +29,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     store: MongoStore.create({
-        mongoUrl: "mongodb://127.0.0.1:27017/Mwencha"
+        mongodb+srv://Francis:mwenchadb@mwencha.5shznhu.mongodb.net/
     })
 }));
 app.use(express.static('assets'));
