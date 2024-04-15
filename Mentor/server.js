@@ -29,7 +29,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     store: MongoStore.create({
-        mongodb+srv://Francis:mwenchadb@mwencha.5shznhu.mongodb.net/?retryWrites=true&w=majority&appName=Mwencha
+        mongoUrl: 'mongodb+srv://Francis:mwenchadb@mwencha.5shznhu.mongodb.net/?retryWrites=true&w=majority&appName=Mwencha',
     
     })
 }));
