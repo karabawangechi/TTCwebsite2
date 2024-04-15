@@ -45,28 +45,28 @@ app.use('/assets', express.static('assets'));
 
 app.use(express.static('uploads'));
 app.use(express.static('node_modules'));
-app.use('/', router);
+// app.use('/', router);
 
-router.get('/index', (req, res) => {
+app.get('/index', (req, res) => {
     res.render("index.ejs");
 });
-router.get('/about', (req, res) => {
+app.get('/about', (req, res) => {
     res.render("about.ejs");
 });
-router.get('/contact', (req, res) => {
+app.get('/contact', (req, res) => {
     res.render("contact.ejs");
 });
 
-router.get('/courses', (req, res) => {
+app.get('/courses', (req, res) => {
     res.render("courses.ejs");
 });
-router.get('/feesstructure', (req, res) => {
+app.get('/feesstructure', (req, res) => {
     res.render("feesstructure.ejs");
 });
-router.get('/register', (req, res) => {
+app.get('/register', (req, res) => {
     res.render("register.ejs");
 });
-router.get('/registerconfirmation', (req, res) => {
+app.get('/registerconfirmation', (req, res) => {
     res.render("registerconfirmation.ejs");
 });
 
