@@ -164,5 +164,5 @@ app.post('/register', upload.fields([
 // Other routes and middleware...
 
 app.listen(PORT, () => {
-    console.log('App is listening on port ${PORT}');
+   console.log(`App is listening on port ${PORT}`);
 });
