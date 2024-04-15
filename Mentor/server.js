@@ -68,6 +68,10 @@ app.get('/register', (req, res) => {
 });
 app.get('/registerconfirmation', (req, res) => {
     res.render("registerconfirmation.ejs");
+
+});
+app.get('/health', (req, res) => {
+    res.send("testing frontend");
 });
 
 
