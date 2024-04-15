@@ -47,7 +47,7 @@ app.use(express.static('uploads'));
 app.use(express.static('node_modules'));
 // app.use('/', router);
 
-app.get('/index', (req, res) => {
+app.get('/', (req, res) => {
     res.render("index.ejs");
 });
 app.get('/about', (req, res) => {
