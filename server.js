@@ -4,17 +4,12 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
+const connectDB = require('./config/db.config');
 const multer = require('multer');
 const Contact = require('./models/contactform.js');
 const Registration = require('./models/register.js');
 const nodemailer = require('nodemailer'); // Added nodemailer
 const router = express.Router();
-const mongoose = require('mongoose'); // Import mongoose
-
-const uri = 'mongodb+srv://Francis:mwenchadb@mwencha.5shznhu.mongodb.net/?retryWrites=true&w=majority&appName=Mwencha';
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Connected to MongoDB Atlas'))
-  .catch(err => console.error('Error connecting to MongoDB Atlas:', err));
 
 app.use(bodyParser.json({
     verify: (req, res, buf) => {
@@ -26,23 +21,22 @@ app.use(bodyParser.json({
     }
   }));
 app.use(bodyParser.urlencoded({ extended: false }))
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 5000;
 
 app.use(cookieParser())
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
-    store: MongoStore.create({ 
-        mongoUrl: uri // Use the MongoDB URI variable here
+    store: MongoStore.create({
+        mongoUrl: "mongodb://127.0.0.1:27017/Mwencha"
     })
 }));
-// Remove the duplicated line for serving static assets
 app.use(express.static('assets'));
 app.set('view engine', 'ejs');
 app.use('/assets', express.static('assets'));
 
-
+app.use(express.static('assets'));
 app.use(express.static('uploads'));
 app.use(express.static('node_modules'));
 app.use('/', router);
@@ -169,5 +163,5 @@ app.post('/register', upload.fields([
 // Other routes and middleware...
 
 app.listen(PORT, () => {
-   console.log(`App is listening on port ${PORT}`);
+    console.log('App is listening on port ${PORT}');
 });
