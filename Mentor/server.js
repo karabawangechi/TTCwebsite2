@@ -29,7 +29,8 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     store: MongoStore.create({
-        mongodb://Francis:mwenchadb@mwencha.5shznhu.mongodb.net/
+        mongodb+srv://Francis:mwenchadb@mwencha.5shznhu.mongodb.net/?retryWrites=true&w=majority&appName=Mwencha
+    
     })
 }));
 app.use(express.static('assets'));
