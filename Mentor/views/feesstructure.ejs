@@ -27,8 +27,73 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <style>
+     /* Styles for the top frame */
+  .frame-container {
+    border: 4px solid #8B5A2B; /* Thick brown border */
+    background-color: rgba(139, 90, 43, 0.1); /* Light brown background color with opacity */
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 1200px;
+  }
 
- 
+  /* Styles for the content */
+  .payment-info p {
+    margin-bottom: 10px;
+  }
+
+  .payment-info strong {
+    font-weight: bold;
+  }
+
+  .payment-info ol {
+    margin-left: 20px;
+  }
+  /* Styles for the requirements */
+  .requirements-container {
+    background-color: rgba(139, 90, 43, 0.7); /* Brown background color with opacity */
+    padding: 20px;
+    border-radius: 10px;
+    color: #fff; /* Text color */
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Styles for the titles */
+  .requirement-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  /* Styles for the content */
+  .requirement-content {
+    margin-bottom: 20px;}
+    
+     /* Table styles */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  tr:hover {
+    background-color: #f5f5f5;
+  }
+  </style>
+
+  
 </head>
 
 <body>
@@ -76,43 +141,30 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="table-responsive">
-                <table class="table table-bordered">
+                <table>
                   <thead>
                     <tr>
-                      <th colspan="4">Fees Structure</th>
-                    </tr>
-                    <tr>
-                      <th>Term</th>
-                      <th>Day Scholars</th>
-                      <th>Boarders</th>
-                      
+                      <th>SESSION</th>
+                      <th>TERM I</th>
+                      <th>TERM II</th>
+                      <th>TERM III</th>
+                      <th>TOTAL</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td>Term 1</td>
-                      <td>20,000</td>
-                      <td>30,000</td>
-                      
-                    </tr>
-                    <tr>
-                      <td>Term 2</td>
+                      <td>DAY SCHOLARS</td>
                       <td>20,000</td>
                       <td>20,000</td>
-                 
-                    </tr>
-                    <tr>
-                      <td>Term 3</td>
-                      <td>15000</td>
-                      <td>20000</td>
-
-                     
-                    </tr>
-                    <tr>
-                      <td>Total</td>
+                      <td>15,000</td>
                       <td>55,000</td>
+                    </tr>
+                    <tr>
+                      <td>BOARDERS</td>
+                      <td>30,000</td>
+                      <td>20,000</td>
+                      <td>20,000</td>
                       <td>70,000</td>
-                      
                     </tr>
                   </tbody>
                 </table>
@@ -122,29 +174,67 @@
           </div>
 
         </div>
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="payment-info">
-          
-              <p><strong>Mode of Payment:</strong> <br>A student shall be registered only on payment of the full term (i.e. 27000). The payment must be a banker's cheque payable to Mwencha Teachers Training College or deposit in KCB Kitale Branch A/C 1105094189 and bring the original deposit slip.</p>
-              <strong><p>Other Charges</p></strong>
-              <p>
-                <ol>
-                  <li>Caution Money: 2000</li>
-                  <li>Student Council Fee: 2000</li>
-                  <li>Library Fee: 3000</li>
-                  <li>Computer Fee: 4000</li>
-                </ol>
-              </p>
+        <div class="frame-container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="payment-info">
+                <p><strong>Mode of Payment:</strong><br>A student shall be registered only on payment of the full term (i.e. 27,000). The payment must be a banker's cheque payable to Mwencha Teachers Training College or deposit in KCB Kitale Branch A/C 1105094189 and bring the original deposit slip.</p>
+                <strong>Other Charges</strong>
+                <p>
+                  <ol>
+                    <li>Caution Money: 2,000</li>
+                    <li>Student Council Fee: 2,000</li>
+                    <li>Library Fee: 3,000</li>
+                    <li>Computer Fee: 4,000</li>
+                  </ol>
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section><!-- End Pricing Section -->
-
-
-
-      </section><!-- End Pricing Section -->
+    <!-- ======= Requirements Section ======= -->
+    <div class="requirements-container">
+      <div class="requirement">
+        <div class="requirement-title">Admission Requirements</div>
+        <div class="requirement-content">
+          <p>Original documents required for registration, including Letter of Admission, K.C.S.E Certificate/Results slip, and School leaving certificate from K.C.S.E school.</p>
+          <p>Non-refundable registration fee of Ksh. 2,000.</p>
+        </div>
+      </div>
+    
+      <div class="requirement">
+        <div class="requirement-title">Additional Documents</div>
+        <div class="requirement-content">
+          <p>Two certified copies of various documents, including K.C.S.E Certificate/result slip, K.C.S.E School Leaving Certificate, Identity cards, and Birth certificate.</p>
+        </div>
+      </div>
+     
+      <div class="requirement">
+        <div class="requirement-title">School Fees and Payments</div>
+        <div class="requirement-content">
+          <p>Day scholars and boarders have different fee structures for each term.</p>
+          <p>Mode of payment: Full term payment of Ksh 27,000, via banker's cheque payable to Mwencha Teachers Training College or deposit in KCB Kitale Branch A/C 1105094189, with original deposit slip required.</p>
+        </div>
+      </div>
+      <div class="requirement">
+        <div class="requirement-title">Other Charges</div>
+        <div class="requirement-content">
+          <p>Caution Money, Student Council Fee, Library Fee, and Computer Fee.</p>
+        </div>
+      </div>
+      <div class="requirement">
+        <div class="requirement-title">Non-Functional Requirements</div>
+        <div class="requirement-content">
+          <p>Attendance to scheduled activities is compulsory, including Lectures, Assemblies, Field trips, Sports, and games with Continuous assessment and monitoring of academic performance.</p>
+          <p>Freedom to practice one's faith while respecting the rights of others.</p>
+          <p>Students are expected to be members of at least one and a maximum of three clubs/societies.</p>
+        </div>
+      </div>
+            
+    </div>
+    <!-- End Requirements Section -->
   
     </main><!-- End #main -->
   

@@ -91,61 +91,92 @@ const upload = multer({ storage: storage });
 // Handle POST request for registration form
 // Handle POST request for registration form
 app.post('/register', upload.fields([
-    { name: 'admissionLetter', maxCount: 1 },
-    { name: 'nationalID', maxCount: 1 },
-    { name: 'kcseCertificate', maxCount: 1 },
-    { name: 'leavingCertificate', maxCount: 1 },
-    { name: 'birthCertificate', maxCount: 1 }
-  ]), async (req, res) => {
-    try {
-      const { name, email } = req.body;
-      const files = req.files;
-  
-      // Create a new registration document
-      const newRegistration = new Registration({
-        name: name,
-        email: email,
-        admissionLetter: files.admissionLetter[0].path,
-        nationalID: files.nationalID[0].path,
-        kcseCertificate: files.kcseCertificate[0].path,
-        leavingCertificate: files.leavingCertificate[0].path,
-        birthCertificate: files.birthCertificate[0].path
-      });
-  
-      // Save the registration document to the database
-      await newRegistration.save();
-  
-      // Send email notification
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: 'Iseatout@gmail.com',
-          pass: 'iwrnouidsjrjvbzw' // Provide your Gmail app password here
-        }
-      });
-  
-      const mailOptions = {
-        from: 'Iseatout@gmail.com',
-        to: email,
-        subject: 'Registration Successful',
-        text: "Thank you for registering with Mwencha TTC. Please note that you need to pay Ksh1000 unrefundable registration fee with Paybill 124536. Please forward the M-Pesa message to mwenchattc2023@gmail.com for confirmation."
-      };
-  
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          console.log('Error sending email:', error);
-        } else {
-          console.log('Email sent:', info.response);
-        }
-      });
-  
-      
-      res.render('registrationconfirmation.ejs' );
-    } catch (error) {
-      console.error('Error processing registration:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  });
+  { name: 'admissionLetter', maxCount: 1 },
+  { name: 'nationalID', maxCount: 1 },
+  { name: 'kcseCertificate', maxCount: 1 },
+  { name: 'leavingCertificate', maxCount: 1 },
+  { name: 'birthCertificate', maxCount: 1 }
+]), async (req, res) => {
+  try {
+    const { name, email } = req.body;
+    const files = req.files;
+
+    // Create a new registration document
+    const newRegistration = new Registration({
+      name: name,
+      email: email,
+      admissionLetter: files.admissionLetter[0].path,
+      nationalID: files.nationalID[0].path,
+      kcseCertificate: files.kcseCertificate[0].path,
+      leavingCertificate: files.leavingCertificate[0].path,
+      birthCertificate: files.birthCertificate[0].path
+    });
+
+    // Save the registration document to the database
+    await newRegistration.save();
+
+    // Send email notification to user
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'ttcmwencha@gmail.com',
+        pass: 'cdddmdbbjnvxhvsf' // Provide your Gmail app password here
+      }
+    });
+
+    const mailOptionsToUser = {
+      from: 'ttcmwencha@gmail.com',
+      to: email,
+      subject: 'Registration Successful',
+      text: "Thank you for registering with Mwencha TTC. Please note that you need to pay Ksh1000 unrefundable registration fee with Paybill 124536. Please forward the M-Pesa message to ttcmwencha@gmail.com for confirmation."
+    };
+
+    transporter.sendMail(mailOptionsToUser, (error, info) => {
+      if (error) {
+        console.log('Error sending email to user:', error);
+      } else {
+        console.log('Email sent to user:', info.response);
+      }
+    });
+
+    // Send email with attachments to ttcmwencha@gmail.com
+    const mailOptionsToTTC = {
+      from: email,
+      to: 'ttcmwencha@gmail.com',
+      subject: 'New Registration',
+      text: `A new registration has been submitted by ${name} email address ${email}`,
+    
+      attachments: [
+        { filename: 'admissionLetter.pdf', path: files.admissionLetter[0].path },
+        { filename: 'nationalID.pdf', path: files.nationalID[0].path },
+        { filename: 'kcseCertificate.pdf', path: files.kcseCertificate[0].path },
+        { filename: 'leavingCertificate.pdf', path: files.leavingCertificate[0].path },
+        { filename: 'birthCertificate.pdf', path: files.birthCertificate[0].path }
+      ]
+    };
+
+    transporter.sendMail(mailOptionsToTTC, (error, info) => {
+      if (error) {
+        console.log('Error sending email to TTC:', error);
+      } else {
+        console.log('Email sent to TTC:', info.response);
+      }
+    });
+
+    res.render('registrationconfirmation.ejs');
+  } catch (error) {
+    console.error('Error processing registration:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'ttcmwencha@gmail.com',
+    pass: 'cdddmdbbjnvxhvsf' // Provide your Gmail app password here
+  }
+});
   app.post('/contactform', async (req, res) => {
     try {
         // Extract data from the request body
@@ -162,16 +193,30 @@ app.post('/register', upload.fields([
         // Save the contact document to the database
         await newContact.save();
 
-        // Send response indicating successful contact form submission
-         res.render('contact.ejs', { successMessage: 'Your message has been sent. Thank you!' });
-    } catch (error) {
-        console.error('Error processing contact form:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
+        let mailOptions = {
+          from: '"${name}" <${email}>', // sender address
+          to: 'ttcmwencha@gmail.com',
+          subject: subject,
+          text: message
+      };
 
+      transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+              console.log(error);
+              res.status(500).json({ error: 'Internal Server Error' });
+          } else {
+              console.log('Email sent: ' + info.response);
+              // Send response indicating successful contact form submission
+              res.render('contact.ejs', { successMessage: 'Your message has been sent. Thank you!' });
+          }
+      });
+  } catch (error) {
+      console.error('Error processing contact form:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 // Other routes and middleware...
 
 app.listen(PORT, () => {
-   console.log(`App is listening on port ${PORT}`);
+   console.log('App is listening on port ${PORT}');
 });
