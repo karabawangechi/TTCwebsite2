@@ -73,6 +73,19 @@ app.get('/registerconfirmation', (req, res) => {
 app.get('/health', (req, res) => {
     res.send("testing frontend");
 });
+app.get('/trainers', (req, res) => {
+  res.render("trainers.ejs");
+});
+app.get('/gallery', (req, res) => {
+  res.render("gallery.ejs");
+});
+app.get('/students', (req, res) => {
+  res.render("students.ejs");
+});
+
+app.get('/activities', (req, res) => {
+  res.render("activities.ejs");
+});
 
 
 

@@ -84,48 +84,53 @@
   }
 
 /* Carousel Container */
+/* Frame Style */
+.frame {
+  border: 6px solid rgba(139, 90, 43, 0.7); /* White border */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  padding: 5px; /* Add padding */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* Carousel Container */
 .carousel {
-      overflow: hidden;
-    }
+  overflow: hidden;
+  width: 100%; /* Adjust to full width */
+  background-color: rgba(139, 90, 43, 0.7);
+}
 
-    /* Carousel Items */
-    .carousel-item {
-      transition: transform 5s; /* Set transition speed */ 
-      overflow: hidden;
-    }
+/* Carousel Items */
+.carousel-item {
+  transition: transform 5s; /* Set transition speed */
+  overflow: hidden;
+  display: block;
+  width: 100%; /* Adjust to full width */
+}
 
-    /* Center Image (Active Item) */
-    .carousel-item.active {
-      transform: scale(2); /* Enlarge the center item */
-      z-index: 1;
-    }
+/* Center Image (Active Item) */
+.carousel-item.active {
+  transform: scale(1); /* Reset scale for center item */
+  z-index: 1;
+}
 
-    /* Side Images */
-    .carousel-item.active .carousel-inner .carousel-item:not(.active) {
-      display: inline-block; /* Display side images inline */
-      width: 33.333%; /* Set width for each side image */
-      overflow: hidden;
-    }
+/* Side Images */
+.carousel-item.active .carousel-inner .carousel-item:not(.active) {
+  display: none; /* Hide side images on smaller screens */
+}
 
-    .carousel-item.active .carousel-inner .carousel-item:not(.active) img {
-       /* Expand width of side images */
-      height: auto; /* Maintain aspect ratio */
-      filter: blur(1px); /* Apply blur effect */
-    }
+.carousel-item.active .carousel-inner .carousel-item:not(.active) img {
+  height: auto; /* Maintain aspect ratio */
+  filter: blur(0); /* Remove blur effect */
+}
 
-    /* Zoom Effect on Hover */
-    .carousel-item:hover {
-      transform: scale(1.2); /* Zoom effect on hover */
-      z-index: 1;
-    }
 
-    /* Remove Blur and Adjust Height for Active Image */
-    .carousel-item.active img {
-      filter: blur(0); /* Remove blur for active image */
-      height: 400px; /* Set height for active image */
-      width: auto; /* Auto width for active image */
-       
-    }
+/* Remove Blur and Adjust Height for Active Image */
+.carousel-item.active img {
+  filter: blur(0); /* Remove blur for active image */
+  height: auto; /* Auto height for active image */
+  width: 100%; /* Adjust to full width */
+}
+
     
 </style>
 
@@ -256,46 +261,57 @@
         <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
 
           
-          <section>
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="5000">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <div class="row">
-                    <div class="col">
+          <secti<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="5000">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="row">
+                  <div class="col">
+                    <div class="frame">
                       <img class="d-block w-100" src="assets/img/Compound5.jpg" alt="First slide">
                     </div>
-                    <div class="col">
+                  </div>
+                  <div class="col">
+                    <div class="frame">
                       <img class="d-block w-100" src="assets/img/compound1.jpg" alt="Second slide">
                     </div>
-                    <div class="col">
+                  </div>
+                  <div class="col">
+                    <div class="frame">
                       <img class="d-block w-100" src="assets/img/compound2.jpg" alt="Third slide">
                     </div>
                   </div>
                 </div>
-                <div class="carousel-item">
-                  <div class="row">
-                    <div class="col">
+              </div>
+              <div class="carousel-item">
+                <div class="row">
+                  <div class="col">
+                    <div class="frame">
                       <img class="d-block w-100" src="assets/img/Compound3.jpg" alt="Fourth slide">
                     </div>
-                    <div class="col">
+                  </div>
+                  <div class="col">
+                    <div class="frame">
                       <img class="d-block w-100" src="assets/img/compound4.jpg" alt="Fifth slide">
                     </div>
-                    <div class="col">
+                  </div>
+                  <div class="col">
+                    <div class="frame">
                       <img class="d-block w-100" src="assets/img/compound5.jpg" alt="Sixth slide">
                     </div>
                   </div>
                 </div>
               </div>
-              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
             </div>
-          </section>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          
 
           </div>
           <div class="swiper-pagination"></div>
