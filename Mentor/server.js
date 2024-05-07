@@ -86,6 +86,12 @@ app.get('/students', (req, res) => {
 app.get('/activities', (req, res) => {
   res.render("activities.ejs");
 });
+app.get('/facilities', (req, res) => {
+  res.render("facilities.ejs");
+});
+app.get('/agriculture', (req, res) => {
+  res.render("agriculture.ejs");
+});
 
 
 

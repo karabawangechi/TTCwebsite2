@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Course Details - Mwencha Bootstrap Template</title>
+  <title>Activities - Mwencha</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -25,14 +25,14 @@
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
+  <!-- Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
   <style>
   /*gallery page elements*/
  /* Styling */
 
 section {
-  background: #F4F4F4;
+  background: #9b9696;
   padding: 40px 0;
 }
 
@@ -194,6 +194,12 @@ section {
   box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.25);
   transition: all 300ms ease-in-out;
 }
+/* Style for the frame */
+.frame {
+  border: 4px solid #8B4513; /* Brown border */
+  background-color: rgba(216, 81, 40, 0.7); /* Semitransparent dark brown background */
+  padding: 10px; /* Adjust padding as needed */
+}
 
   </style>
 </head>
@@ -206,20 +212,19 @@ section {
 
       <h1 class="logo me-auto"><a href="/">Mwencha</a></h1>
      
-      <a href="/" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      <a href="/" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a href="index">Home</a></li>
+          <li><a href="/">Home</a></li>
           <li><a href="about">About</a></li>
           <li><a href="courses">Courses</a></li>
           <li><a href="trainers">Trainers</a></li>
           <li class="dropdown ">
             <a href="gallery" class="active"><span>Gallery</span> <i class="bi bi-chevron-down"></i></a>
-        
           
             <ul>
-              <li><a href="">Our Facilities</a></li>
+              <li><a href="facilities">Our Facilities</a></li>
               <!-- <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
                   <li><a href="#">Deep Drop Down 1</a></li>
@@ -230,8 +235,9 @@ section {
                 </ul>
               </li> -->
               <li><a href="students">Our Students</a></li>
-              <li><a href="activities">Our Activities</a></li>
-              <li><a href="gallery.ejs">Others</a></li>
+              <li><a href="activities" class="active">Our Activities</a></li>
+              <li><a href="agriculture"></a></li>
+              <li><a href="gallery">Others</a></li>
             </ul>
           </li>
           <li><a href="feesstructure">Fee Structure</a></li>
@@ -251,11 +257,15 @@ section {
     <div class="breadcrumbs" data-aos="fade-in">
       <div class="container">
         <h2>Activities and Events</h2>
-        <p>Est dolorum ut non facere possimus quibusdam eligendi voluptatem. Quia id aut similique quia voluptas sit quaerat debitis. Rerum omnis ipsam aperiam consequatur laboriosam nemo harum praesentium. </p>
+        <p>Explore the vibrant tapestry of events and activities that define life at Mwencha Teachers Training College.
+           From academic seminars to cultural celebrations, our gallery showcases the diverse
+           experiences and memorable moments shared by our students, faculty, and staff. 
+           Step inside and immerse yourself in the vibrant spirit of community, creativity, and learning that permeates every aspect of our college life. </p>
       </div>
     </div><!-- End Breadcrumbs -->
 
     <!-- ======= Cource Details Section ======= -->
+    <div class="frame">
     <section id="course-details" class="course-details">
       <section>
         <div class="container">
@@ -272,10 +282,10 @@ section {
                             <div>
                                 <img src="/assets/img/imgyoga.jpg" alt="">
                             </div>
-                            <figcaption>
+                            <!-- <figcaption>
                                 Yoga is a group of physical, mental, and spiritual practices or disciplines which originated in ancient India.Yoga is a physical, mental and spiritual practice great for personal health.
                                 <span class="credit">Photo: April, 2024</span>
-                            </figcaption>
+                            </figcaption> -->
                         </figure>
                     </li>
                     <li class="carousel__slide">
@@ -283,10 +293,10 @@ section {
                             <div>
                                 <img src="/assets/img/imgparade1.jpg" alt="">
                             </div>
-                            <figcaption>
+                            <!-- <figcaption>
                                 Always nice to meet up once in a while.
                                 <span class="credit">Photo: April, 2024</span>                            
-                            </figcaption>
+                            </figcaption> -->
                         </figure>
                     </li>
                     <li class="carousel__slide">
@@ -294,10 +304,10 @@ section {
                             <div>
                                 <img src="/assets/img/imgclass2.jpg" alt="" >
                             </div>
-                            <figcaption>
+                            <!-- <figcaption>
                                 Students having a lecture.
                                 <span class="credit">Photo: April, 2024</span>                            
-                            </figcaption>
+                            </figcaption> -->
                         </figure>
                     </li>
                     <li class="carousel__slide">
@@ -305,59 +315,61 @@ section {
                             <div>
                                 <img src="assets/img/imgnature1.jpg"  alt="">
                             </div>
-                            <figcaption>
+                            <!-- <figcaption>
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                 <span class="credit">Photo: Aleksandra Boguslawska</span>                            
-                            </figcaption>
+                            </figcaption> -->
                         </figure>
                     </li>
                     <li class="carousel__slide">
                         <figure>
                             <div>
-                                <img src="assets/img/compound5.jpg" alt="">
+                                <img src="assets/img/imgstretches1.jpg" alt="">
                             </div>
-                            <figcaption>
+                            <!-- <figcaption>
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                 <span class="credit">Photo: Rosan Harmens</span>                            
-                            </figcaption>
+                            </figcaption> -->
                         </figure>
                     </li>
                     <li class="carousel__slide">
                         <figure>
                             <div>
-                                <img src="assets/img/building1.jpg" alt="">
+                                <img src="assets/img/imgselfie1.jpg" alt="">
                             </div>
-                            <figcaption>
+                            <!-- <figcaption>
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                 <span class="credit">Photo: Annie Spratt</span>                            
-                            </figcaption>
+                            </figcaption> -->
                         </figure>
                     </li>
                 </ul>    
                 <ul class="carousel__thumbnails">
                     <li>
-                        <label for="slide-1"><img src="assets/img/compound1.jpg" alt=""></label>
+                        <label for="slide-1"><img src="assets/img/imgyoga.jpg" alt=""></label>
                     </li>
                     <li>
-                        <label for="slide-2"><img src="/assets/img/compound2.jpg" alt=""></label>
+                        <label for="slide-2"><img src="/assets/img/imgparade1.jpg" alt=""></label>
                     </li>
                     <li>
-                        <label for="slide-3"><img src="/assets/img/compound3.jpg" alt=""></label>
+                        <label for="slide-3"><img src="/assets/img/imgclass2.jpg" alt=""></label>
                     </li>
                     <li>
-                        <label for="slide-4"><img src="/assets/img/compound4.jpg" alt=""></label>
+                        <label for="slide-4"><img src="/assets/img/imgnature1.jpg" alt=""></label>
                     </li>
                     <li>
-                        <label for="slide-5"><img src="/assets/img/compound5.jpg" alt=""></label>
+                        <label for="slide-5"><img src="/assets/img/imgstretches1.jpg" alt=""></label>
                     </li>
                     <li>
-                        <label for="slide-6"><img src="/assets/img/building1.jpg" alt=""></label>
+                        <label for="slide-6"><img src="/assets/img/imgselfie1.jpg" alt=""></label>
                     </li>
                 </ul>
             </div>
         </div>
     </section>
-    </section><!-- End Course Details Section -->
+    </section>
+    </div>
+    <!-- End Course Details Section -->
 
     
    
@@ -370,19 +382,19 @@ section {
           <div class="col-lg-3">
             <ul class="nav nav-tabs flex-column">
               <li class="nav-item">
-                <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">Modi sit est</a>
+                <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">Gallery Sections</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Unde praesentium sed</a>
+                <a class="nav-link" data-bs-toggle="tab" href="facilities">Check out our facilities</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Pariatur explicabo vel</a>
+                <a class="nav-link" data-bs-toggle="tab" href="students">Check out our students</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#tab-4">Nostrum qui quasi</a>
+                <a class="nav-link" data-bs-toggle="tab" href="activities">Experience with us</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#tab-5">Iusto ut expedita aut</a>
+                <a class="nav-link" data-bs-toggle="tab" href="register">Create proffession while smiling</a>
               </li>
             </ul>
           </div>
@@ -391,12 +403,16 @@ section {
               <div class="tab-pane active show" id="tab-1">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Architecto ut aperiam autem id</h3>
-                    <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                    <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum eos ipsum ipsa odit magni. Incidunt hic ut molestiae aut qui. Est repellat minima eveniet eius et quis magni nihil. Consequatur dolorem quaerat quos qui similique accusamus nostrum rem vero</p>
+                    <h3>Behind-the-Scenes Insights:</h3>
+                    <p class="fst-italic">From classroom to campus events, explore the diverse experiences of life at Mwencha TTC</p>
+                   
+                    <p>Share your favorite image from the gallery on your social media and tag us for a chance to be featured</p>
+                    <p>Can you spot all the smiles in these photos? Count them and let us know</p>
+                    <p>Join the fun! Create a caption for your favorite image and share it with us!</p>
+                    <p> We are always looking for new ways to engage with our community. If you have any ideas for future gallery themes or events, please let us know!</p>
                   </div>
                   <div class="col-lg-4 text-center order-1 order-lg-2">
-                    <img src="assets/img/course-details-tab-1.png" alt="" class="img-fluid">
+                    <img src="assets/img/logo.png" alt="" class="img-fluid">
                   </div>
                 </div>
               </div>
@@ -520,9 +536,8 @@ section {
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
 
-  <!-- Template Main JS File -->
+  <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 
 </body>
 
-< >
