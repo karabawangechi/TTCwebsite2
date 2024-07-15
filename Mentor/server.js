@@ -110,7 +110,7 @@ const upload = multer({ storage: storage });
 // Handle POST request for registration form
 // Handle POST request for registration form
 app.post('/register', upload.fields([
-  { name: 'admissionLetter', maxCount: 1 },
+  
   { name: 'nationalID', maxCount: 1 },
   { name: 'kcseCertificate', maxCount: 1 },
   { name: 'leavingCertificate', maxCount: 1 },
@@ -124,7 +124,7 @@ app.post('/register', upload.fields([
     const newRegistration = new Registration({
       name: name,
       email: email,
-      admissionLetter: files.admissionLetter[0].path,
+      
       nationalID: files.nationalID[0].path,
       kcseCertificate: files.kcseCertificate[0].path,
       leavingCertificate: files.leavingCertificate[0].path,
@@ -166,7 +166,7 @@ app.post('/register', upload.fields([
       text: `A new registration has been submitted by ${name} email address ${email}`,
     
       attachments: [
-        { filename: 'admissionLetter.pdf', path: files.admissionLetter[0].path },
+        
         { filename: 'nationalID.pdf', path: files.nationalID[0].path },
         { filename: 'kcseCertificate.pdf', path: files.kcseCertificate[0].path },
         { filename: 'leavingCertificate.pdf', path: files.leavingCertificate[0].path },
